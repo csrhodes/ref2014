@@ -1,0 +1,11 @@
+Package: ref2014
+Version: 0.1-1
+Date: 2014-12-23
+Title: Data associated with REF 2014
+Authors@R: c(person("Christophe", "Rhodes", role = c("aut", "cre"),
+		     email = "c.rhodes@gold.ac.uk"))
+Author: Christophe Rhodes (using data from REF and HESA)
+Maintainer: Christophe Rhodes <c.rhodes@gold.ac.uk>
+Description: Cleaned datasets from the 2014 Research Excellence Framework
+License: CC0
+URL: http://www.ref.ac.uk/, http://www.hesa.ac.uk/ref2014/
