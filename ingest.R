@@ -1,13 +1,14 @@
 library(methods)
 
 ref2014.colClasses <- list()
+ref2014.factor.levels <- list()
 
-ref2014.raw <- read.csv("csv/REF2014_Results.csv", header=TRUE, skip=4, colClasses="character", na.strings=" ")[-(1:3),]
+ref2014 <- read.csv("csv/REF2014_Results.csv", header=TRUE, skip=4, colClasses="character", na.strings=" ")[-(1:3),]
 
-ref2014.raw$UOA <- as.numeric(ref2014.raw$UOA)
+ref2014$UOA <- as.numeric(ref2014$UOA)
 
-for (i in 1:length(colnames(ref2014.raw))) {
-    ref2014.colClasses[[colnames(ref2014.raw)[i]]] <-
+for (i in 1:length(colnames(ref2014))) {
+    ref2014.colClasses[[colnames(ref2014)[i]]] <-
         c("factor", "character", "numeric", "factor", "factor", "character", "factor", "character",
           "character", "factor", "numeric", rep("numeric",5))[i]
 }
@@ -19,6 +20,8 @@ hesa.colClasses <- c("factor", "factor", "factor", "character",
 ref2014.colClasses[["INSTID"]] <- "factor"
 ref2014.colClasses[["Region"]] <- "factor"
 ref2014.colClasses[["EligibleFte"]] <- "numeric"
+
+
 
 hesa2014.raw <- droplevels(
     read.csv("csv/290183_REF_Contextual_table_1314.csv", na.strings=c("Z", ".."), skip=8,
@@ -51,22 +54,30 @@ hesa2014[hesa2014$UKPRN == "10007766" & hesa2014$UOA == "25", "UKPRN"] <- "10007
 
 hesa2014$UOA <- as.numeric(hesa2014$UOA)
 
-ref2014 <- merge(ref2014.raw, hesa2014[,c("INSTID", "UKPRN", "Region", "UOA", "msubId", "EligibleFte")],
-                 all=TRUE)
+for (c in colnames(ref2014)) {
+    ref2014[[c]] <-
+        if (ref2014.colClasses[[c]] == "factor") {
+            ref2014.factor.levels[[c]] <- unique(c(ref2014[[c]], hesa2014[[c]]))
+            factor(ref2014[[c]], levels=ref2014.factor.levels[[c]])
+        } else {
+            as(ref2014[[c]], ref2014.colClasses[[c]])
+        }
+}
 
 for (i in 1:length(hesa.colnames)) {
-    hesa2014[[hesa.colnames[i]]] <- if (hesa.colClasses[i] == "factor")
-                                        as.factor(hesa2014[[hesa.colnames[i]]])
-                                    else
-                                        as(hesa2014[[hesa.colnames[i]]], hesa.colClasses[i])
+    hesa2014[[hesa.colnames[i]]] <-
+        if (hesa.colClasses[i] == "factor") {
+            ls <- ref2014.factor.levels[[hesa.colnames[i]]]
+            if(!is.null(ls)) {
+                factor(hesa2014[[hesa.colnames[i]]], levels=ls)
+            } else {
+                factor(hesa2014[[hesa.colnames[i]]])
+            }
+        } else {
+            as(hesa2014[[hesa.colnames[i]]], hesa.colClasses[i])
+        }
 }
 
-for (c in colnames(ref2014)) {
-    ref2014[[c]] <- if (ref2014.colClasses[[c]] == "factor")
-                        as.factor(ref2014[[c]])
-                    else
-                        as(ref2014[[c]], ref2014.colClasses[[c]])
-}
 
 save(hesa2014, file="R/data/hesa2014.rda")
 save(ref2014, file="R/data/ref2014.rda")
