@@ -7,5 +7,6 @@ Authors@R: c(person("Christophe", "Rhodes", role = c("aut", "cre"),
 Author: Christophe Rhodes (using data from REF and HESA)
 Maintainer: Christophe Rhodes <c.rhodes@gold.ac.uk>
 Description: Cleaned datasets from the 2014 Research Excellence Framework
+Suggests: dplyr, ggplot2, scales
 License: CC0
 URL: http://www.ref.ac.uk/, http://www.hesa.ac.uk/ref2014/

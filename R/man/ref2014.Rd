@@ -31,6 +31,28 @@
 
     \item{\code{StaffFte}}{a numeric vector representing the FTE
       Category A staff submitted.}
+
+    \item{\code{Profile}}{a factor representing the profile assessed,
+    with levels \code{Outputs}, \code{Impact}, \code{Environment}, and
+    \code{Overall}.}
+
+    \item{\code{FourStar}}{the proportion of the profile judged to merit
+      4* (world-leading).}
+    \item{\code{ThreeStar}}{the proportion of the profile judged to
+      merit 3* (internationally excellent).}
+    \item{\code{TwoStar}}{the proportion of the profile judged to merit
+      2* (internationally recognized).}
+    \item{\code{OneStar}}{the proportion of the profile judged to merit
+      1* (nationally recognized).}
+    \item{\code{Unclassified}}{the proportion of the profile judged to
+      fall below the standard of nationally recognized work, or work
+      judged not to meet the definition of “research” for the
+      assessment.}
+
+    \item{\code{JointSubmission}}{something}
+    \item{\code{SortOrder}}{something}
+    \item{\code{MainPanel}}{something}
+    \item{\code{MultipleSubmission}}{something}
   }
 }
 \details{
