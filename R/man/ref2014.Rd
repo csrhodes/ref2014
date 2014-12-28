@@ -28,6 +28,9 @@
     \code{Not Recorded}; missing (\code{NA}) values indicate that there
     was only a single submission for that HE provider and Unit of
     Assessment;}
+    \item{\code{MultipleSubmission}}{a character vector documenting the
+    nature of the multiple submission by a single institution to a
+    single panel.}
 
     \item{\code{StaffFte}}{a numeric vector representing the FTE
       Category A staff submitted.}
@@ -49,15 +52,16 @@
       judged not to meet the definition of “research” for the
       assessment.}
 
-    \item{\code{JointSubmission}}{something}
-    \item{\code{SortOrder}}{something}
-    \item{\code{MainPanel}}{something}
-    \item{\code{MultipleSubmission}}{something}
+    \item{\code{JointSubmission}}{a character vector documenting the
+    joint nature, if any, of the submission.}
+    \item{\code{SortOrder}}{a numeric to assist in sorting rows.}
+    \item{\code{MainPanel}}{a factor representing the main panel for the
+    submission, with levels \code{A}, \code{B}, \code{C} and \code{D}.}
   }
 }
 \details{
   This data set was published by REF as the results of the Research
   Excellence Framework 2014.
 }
-\source{https://www.ref.ac.uk/}
+\source{https://results.ref.ac.uk/}
 \keyword{datasets}
