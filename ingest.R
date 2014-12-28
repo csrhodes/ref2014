@@ -78,6 +78,6 @@ for (i in 1:length(hesa.colnames)) {
         }
 }
 
-
+dir.create("R/data")
 save(hesa2014, file="R/data/hesa2014.rda")
 save(ref2014, file="R/data/ref2014.rda")
