@@ -32,6 +32,12 @@ hesa2014.qmul <- droplevels(
 hesa2014.cardiff <- droplevels(
     read.csv("csv/290183_0179_ReplacementFTEs.csv", na.strings="Z", skip=9,
              header=FALSE, col.names=hesa.colnames, colClasses="character")[-(28:31),])
+hesa2014.aberdeen <- droplevels(
+    read.csv("csv/290183_0170_ReplacementFTEs.csv", na.strings="Z", skip=10,
+             header=FALSE, col.names=hesa.colnames, colClasses="character")[-(27:30),])
+hesa2014.aston <- droplevels(
+    read.csv("csv/290183_0108_ReplacementFTEs.csv", na.strings="Z", skip=9,
+             header=FALSE, col.names=hesa.colnames, colClasses="character")[-(10:13),])
 
 hesa2014.fixup <- function(df) {
     df <- df[,c("INSTID", "UOA", "msubId", "EligibleFte")]
@@ -43,7 +49,7 @@ hesa2014.fixup <- function(df) {
     tmp[,colnames(hesa2014.raw)]
 }
 
-hesa2014 <- hesa2014.fixup(rbind(hesa2014.qmul, hesa2014.cardiff))
+hesa2014 <- hesa2014.fixup(rbind(hesa2014.qmul, hesa2014.cardiff, hesa2014.aberdeen, hesa2014.aston))
 
 stopifnot(sum(is.na(hesa2014$EligibleFte)) == 0)
 
