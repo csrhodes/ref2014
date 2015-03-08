@@ -24,19 +24,19 @@ ref2014.colClasses[["EligibleFte"]] <- "numeric"
 
 
 hesa2014.raw <- droplevels(
-    read.csv("csv/290183_REF_Contextual_table_1314.csv", na.strings=c("Z", ".."), skip=8,
+    read.csv("csv/290183_REF_Contextual_table_1314.csv", na.strings=c("Z", ".."), skip=8, fileEncoding="LATIN1",
              header=FALSE, col.names=hesa.colnames, colClasses="character")[-(2559:2563),])
 hesa2014.qmul <- droplevels(
-    read.csv("csv/290183_0139_ReplacementFTEs.csv", na.strings="Z", skip=9,
+    read.csv("csv/290183_0139_ReplacementFTEs.csv", na.strings="Z", skip=9, fileEncoding="LATIN1",
              header=FALSE, col.names=hesa.colnames, colClasses="character")[-(12:15),])
 hesa2014.cardiff <- droplevels(
-    read.csv("csv/290183_0179_ReplacementFTEs.csv", na.strings="Z", skip=9,
+    read.csv("csv/290183_0179_ReplacementFTEs.csv", na.strings="Z", skip=9, fileEncoding="LATIN1",
              header=FALSE, col.names=hesa.colnames, colClasses="character")[-(28:31),])
 hesa2014.aberdeen <- droplevels(
-    read.csv("csv/290183_0170_ReplacementFTEs.csv", na.strings="Z", skip=10,
+    read.csv("csv/290183_0170_ReplacementFTEs.csv", na.strings="Z", skip=10, fileEncoding="LATIN1",
              header=FALSE, col.names=hesa.colnames, colClasses="character")[-(27:30),])
 hesa2014.aston <- droplevels(
-    read.csv("csv/290183_0108_ReplacementFTEs.csv", na.strings="Z", skip=9,
+    read.csv("csv/290183_0108_ReplacementFTEs.csv", na.strings="Z", skip=9, fileEncoding="LATIN1",
              header=FALSE, col.names=hesa.colnames, colClasses="character")[-(10:13),])
 
 hesa2014.fixup <- function(df) {
@@ -59,6 +59,8 @@ hesa2014[hesa2014$UKPRN == "10007766" & hesa2014$UOA == "25", "msubId"] <- "A"
 hesa2014[hesa2014$UKPRN == "10007766" & hesa2014$UOA == "25", "UKPRN"] <- "10007784"
 
 hesa2014$UOA <- as.numeric(hesa2014$UOA)
+
+hesa2014$Institution <- sub("\u0086.*$", "", hesa2014$Institution)
 
 for (c in colnames(ref2014)) {
     ref2014[[c]] <-
